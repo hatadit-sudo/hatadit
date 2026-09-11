@@ -78,7 +78,11 @@ func run() -> void:
 	game.model.resources.wood += 50
 	check(game.model.load_game(),"Scene save loads")
 	check(game.model.snapshot() == saved,"Scene state restores exactly")
+	game.stop_audio()
+	# Let the audio mixer consume queued playback/stop requests before destroying its owners.
+	await create_timer(0.6).timeout
 	game.queue_free()
+	await process_frame
 	await process_frame
 	DirAccess.remove_absolute(TEST_SAVE)
 	print("SCENE CHECKS: %d; FAILURES: %d" % [checks,failures])

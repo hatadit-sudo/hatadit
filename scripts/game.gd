@@ -501,8 +501,19 @@ func play_sound(kind: String) -> void:
 	if muted or not sounds.has(kind) or audio_players.is_empty(): return
 	var player: AudioStreamPlayer = audio_players[audio_index%audio_players.size()]
 	audio_index += 1
+	player.stop()
 	player.stream = sounds[kind]
 	player.play()
+
+func stop_audio() -> void:
+	for player in audio_players:
+		if is_instance_valid(player):
+			player.stop()
+			player.stream = null
+
+func _exit_tree() -> void:
+	stop_audio()
+	sounds.clear()
 
 func notify(message: String) -> void:
 	toast.text = message
