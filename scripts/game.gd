@@ -11,8 +11,8 @@ var info = Label.new()
 var hint = Label.new()
 var toast = Label.new()
 var resource_labels: Dictionary = {}
-var round_label = Label.new()
-var worker_label = Label.new()
+var round_label: Label
+var worker_label: Label
 var end_button: Button
 var context = HBoxContainer.new()
 var modal: Control
